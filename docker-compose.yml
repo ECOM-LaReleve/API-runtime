@@ -1,0 +1,19 @@
+version: '2'
+services:
+    wildfly:
+        image: lareleve
+        ports:
+            - "8080:8080"
+            - "9990:9990"
+        environment:
+            ADMIN_USERNAME: 'admin'
+            ADMIN_PASSWORD: 'Admin#70365'
+            # DATABASE_HOST: 'db:3306'
+    mysqldb:
+        container_name: "db"
+        image: mysql:latest
+        environment:
+            MYSQL_DATABASE: sample
+            MYSQL_USER: mysql
+            MYSQL_PASSWORD: mysql
+            MYSQL_ROOT_PASSWORD: supersecret
