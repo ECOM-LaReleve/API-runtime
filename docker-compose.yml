@@ -9,6 +9,7 @@ services:
             ADMIN_USERNAME: 'admin'
             ADMIN_PASSWORD: 'Admin#70365'
             # DATABASE_HOST: 'db:3306'
+            JAVA_OPTS: '-server -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true -Dcom.sun.jersey.server.impl.cdi.lookupExtensionInBeanManager=true'
     mysqldb:
         container_name: "db"
         image: mysql:latest
