@@ -19,3 +19,7 @@ services:
             MYSQL_ROOT_PASSWORD: 'mysqldb123'
         volumes:
             - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+            - mysqlVolume:/var/lib/mysql
+volumes:
+  mysqlVolume:
+      driver: local
