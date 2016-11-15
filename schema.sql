@@ -620,3 +620,162 @@ DELIMITER ;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+START TRANSACTION;
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`Roles`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`Roles` (`id`, `libellé`) VALUES (1, 'TS');
+INSERT INTO `lareleve`.`Roles` (`id`, `libellé`) VALUES (2, 'DAE');
+INSERT INTO `lareleve`.`Roles` (`id`, `libellé`) VALUES (3, 'DG');
+INSERT INTO `lareleve`.`Roles` (`id`, `libellé`) VALUES (4, 'Accueil');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`Poles`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`Poles` (`id`, `chefPole`, `libellé`) VALUES (1, 1, 'ASILE');
+INSERT INTO `lareleve`.`Poles` (`id`, `chefPole`, `libellé`) VALUES (2, 2, 'URGENCE');
+INSERT INTO `lareleve`.`Poles` (`id`, `chefPole`, `libellé`) VALUES (3, 3, 'INSERTION');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`Services`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`Services` (`id`, `idPole`, `libellé`) VALUES (1, 1, 'LA PAUSE');
+INSERT INTO `lareleve`.`Services` (`id`, `idPole`, `libellé`) VALUES (2, 2, 'SAFEC');
+INSERT INTO `lareleve`.`Services` (`id`, `idPole`, `libellé`) VALUES (3, 3, 'CHRS insertion');
+INSERT INTO `lareleve`.`Services` (`id`, `idPole`, `libellé`) VALUES (4, 3, 'CHRS urgence');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`Utilisateurs`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (1, 4, '1234', 'roger', 'Roger', 'Rabbit');
+INSERT INTO `lareleve`.`Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (2, 3, 'password', 'henry', 'Henry', 'Gaule');
+INSERT INTO `lareleve`.`Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (3, 2, 'mdp', 'quentin-elsa', 'Quentin-Elsa', 'Dunand-Navarro');
+INSERT INTO `lareleve`.`Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (4, 1, 'azerty', 'popek', 'Florian', 'Popek');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`RolesUtilisateurs`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (1, 1);
+INSERT INTO `lareleve`.`RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (2, 2);
+INSERT INTO `lareleve`.`RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (3, 3);
+INSERT INTO `lareleve`.`RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (4, 4);
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`Logements`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (1, 10, 100, 1000, 'passif', '17 rue François', 3, '1206', 'Au fond à droite', 'Immeuble', 35, 400, 50);
+INSERT INTO `lareleve`.`Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (2, 20, 200, 2000, 'actif', '1 boulevard du Boulevard', 1, NULL, 'A l\'adresse comme indiquée', 'Maison', 50, 500, 0);
+INSERT INTO `lareleve`.`Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (3, 30, 300, 3000, 'passif', '123 rue du Quatre-Cinq-Six', 2, '1234', NULL, 'Immeuble', 60, 750, 80);
+INSERT INTO `lareleve`.`Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (4, 40, 400, 4000, 'actif', '99999 rue de l\'Infini', 99, 'unsigned int (-1)', 'Suivre l\'hyperbole', 'Palace', 999, 1, 0.1);
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`Menages`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (1, 4, 1, '25/10/2003', NULL, 'Hell');
+INSERT INTO `lareleve`.`Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (2, 3, 2, '25/11/2004', NULL, '42 rue de la Vie');
+INSERT INTO `lareleve`.`Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (3, 2, 3, '5/3/2007', '1/1/9999', NULL);
+INSERT INTO `lareleve`.`Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (4, 1, 4, '1/1/2009', '2/1/2009', 'Cimetière');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`Besoins`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`Besoins` (`id`, `libelle`) VALUES (1, 'Logement');
+INSERT INTO `lareleve`.`Besoins` (`id`, `libelle`) VALUES (2, 'Administratif');
+INSERT INTO `lareleve`.`Besoins` (`id`, `libelle`) VALUES (3, 'Santé');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`Actes`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`Actes` (`id`, `libelle`) VALUES (1, 'RDV partenaire');
+INSERT INTO `lareleve`.`Actes` (`id`, `libelle`) VALUES (2, 'VAD');
+INSERT INTO `lareleve`.`Actes` (`id`, `libelle`) VALUES (3, 'Entretien de pré-admission');
+INSERT INTO `lareleve`.`Actes` (`id`, `libelle`) VALUES (4, 'RDV spontanné');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`Prestations`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`Prestations` (`id`, `idBesoin`, `libelle`) VALUES (1, 1, 'Recherche d\'un logement auprès de Stephane Plaza');
+INSERT INTO `lareleve`.`Prestations` (`id`, `idBesoin`, `libelle`) VALUES (2, 2, 'Licenciement de Cécile');
+INSERT INTO `lareleve`.`Prestations` (`id`, `idBesoin`, `libelle`) VALUES (3, 3, 'Achat de mercurochrome');
+INSERT INTO `lareleve`.`Prestations` (`id`, `idBesoin`, `libelle`) VALUES (4, 3, 'Achat de pansement');
+INSERT INTO `lareleve`.`Prestations` (`id`, `idBesoin`, `libelle`) VALUES (5, 2, 'Achat de dosette pour la cafétière');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`Individus`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (1, 1, 'Adi', 'Jaques l\'éventeur', 'Jacques', 0600000000, 'Montélimar', 'En couple', '1/1/2000', 'Asile');
+INSERT INTO `lareleve`.`Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (2, 1, 'Moon', 'Salomon', 'Salomon', 0600000001, 'Valence', 'En couple', '1/1/2001', 'Réfugié');
+INSERT INTO `lareleve`.`Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (3, 2, 'Laconis', 'Petit Nicolas', 'Nicolas', 0600000002, 'Loriol', '', '10/10/2001', NULL);
+INSERT INTO `lareleve`.`Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (4, 3, 'B', 'Aaa', 'A', 0600000003, 'Livron', 'Célibataire', '10/11/2001', NULL);
+INSERT INTO `lareleve`.`Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (5, 4, '2', '111', '1', NULL, 'Ardèche', 'Célibataire', '10/12/2001', NULL);
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`PrestationsRealisees`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (1, 1, 20013, 1, 1, NULL, 'Validé', '10/10/2013', '15/10/2013', 'Stéphane Plaza était très gentil');
+INSERT INTO `lareleve`.`PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (2, 4, 21555, 2, NULL, NULL, 'Validé', '20/11/2013', '11/11/2016', 'Les pansements se font rares');
+INSERT INTO `lareleve`.`PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (3, 5, 3422, 3, NULL, NULL, 'Validé', '22/11/2014', '22/11/2014', 'On a encore eu de la chance');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`ActesRealises`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`ActesRealises` (`id`, `idActe`, `seqActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `dateRealisation`, `commentaire`) VALUES (1, 1, 12, 3, 1, NULL, NULL, 1, 'Honoré', '17/10/2013', 'Stéphane Plaza nous a vraiment aidé sur ce coup !');
+INSERT INTO `lareleve`.`ActesRealises` (`id`, `idActe`, `seqActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `dateRealisation`, `commentaire`) VALUES (2, 3, 6, 4, NULL, 4, 1, NULL, 'A venir', DEFAULT, 'A faire rapidement');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`Ressources`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`Ressources` (`id`, `libelle`, `type`) VALUES (1, 'RSA', 'individu');
+INSERT INTO `lareleve`.`Ressources` (`id`, `libelle`, `type`) VALUES (2, 'Alloc', 'menage');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`Langues`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`Langues` (`id`, `libelle`) VALUES (1, 'Français');
+INSERT INTO `lareleve`.`Langues` (`id`, `libelle`) VALUES (2, 'Ardéchois');
+INSERT INTO `lareleve`.`Langues` (`id`, `libelle`) VALUES (3, 'Breton');
+INSERT INTO `lareleve`.`Langues` (`id`, `libelle`) VALUES (4, 'Togolais');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`RessourcesIndividus`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (1, '1', 999);
+INSERT INTO `lareleve`.`RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (2, '1', 60);
+INSERT INTO `lareleve`.`RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (3, '1', 40);
+INSERT INTO `lareleve`.`RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (4, '1', 20);
+INSERT INTO `lareleve`.`RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (5, '1', 0);
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`RessourcesMenages`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`RessourcesMenages` (`idMenage`, `idRessources`, `montantRessource`) VALUES (1, '2', 300);
+INSERT INTO `lareleve`.`RessourcesMenages` (`idMenage`, `idRessources`, `montantRessource`) VALUES (2, '2', 400);
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`LanguesIndividus`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (1, '1', 'Bon');
+INSERT INTO `lareleve`.`LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (2, '2', 'Moyen');
+INSERT INTO `lareleve`.`LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (3, '1', 'Bon');
+INSERT INTO `lareleve`.`LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (4, '3', 'Très bon');
+INSERT INTO `lareleve`.`LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (5, '4', 'Muet');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`Nationnalites`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`Nationnalites` (`id`, `libelle`) VALUES (1, 'Française');
+INSERT INTO `lareleve`.`Nationnalites` (`id`, `libelle`) VALUES (2, 'Anglaise');
+INSERT INTO `lareleve`.`Nationnalites` (`id`, `libelle`) VALUES (3, 'Marocaine');
+
+-- -----------------------------------------------------
+-- Data for table `lareleve`.`NationnalitesIndividus`
+-- -----------------------------------------------------
+INSERT INTO `lareleve`.`NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (1, '3');
+INSERT INTO `lareleve`.`NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (2, '3');
+INSERT INTO `lareleve`.`NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (3, '2');
+INSERT INTO `lareleve`.`NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (4, '2');
+INSERT INTO `lareleve`.`NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (5, '1');
+
+COMMIT;
