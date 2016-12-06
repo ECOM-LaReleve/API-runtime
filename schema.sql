@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `Menages` (
     FOREIGN KEY (`idLogement`)
     REFERENCES `Logements` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_Menages_Individus_id`
     FOREIGN KEY (`idChefMenage`)
     REFERENCES `Individus` (`id`)
@@ -564,10 +564,10 @@ INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`
 -- -----------------------------------------------------
 -- Data for table `Menages`
 -- -----------------------------------------------------
-INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (1, 4, 1, '2003-10-25', NULL, 'Hell');
-INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (2, 3, 2, '2004-11-25', NULL, '42 rue de la Vie');
-INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (3, 2, 3, '2007-3-5', '9999-1-1', NULL);
-INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (4, 1, 4, '2009-1-1', '2009-1-2', 'Cimetière');
+INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`, `idChefMenage`) VALUES (1, 4, 1, '2003-10-25', NULL, 'Hell', 1);
+INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`, `idChefMenage`) VALUES (2, 3, 2, '2004-11-25', NULL, '42 rue de la Vie', 4);
+INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`, `idChefMenage`) VALUES (3, 2, 3, '2007-3-5', '9999-1-1', NULL, 5);
+INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`, `idChefMenage`) VALUES (4, 1, 4, '2009-1-1', '2009-1-2', 'Cimetière', 2);
 
 -- -----------------------------------------------------
 -- Data for table `Besoins`

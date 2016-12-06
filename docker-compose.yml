@@ -7,11 +7,13 @@ services:
             - "9990:9990"
         environment:
             JAVA_OPTS: '-server -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true -Dcom.sun.jersey.server.impl.cdi.lookupExtensionInBeanManager=true'
-#            - ./data/wildfly/deployments/:/opt/jboss/wildfly/standalone/deployments/
         volumes:
             - ./data/wildfly/log:/opt/jboss/wildfly/standalone/log
+            - ./data/wildfly/deployments/:/opt/jboss/wildfly/standalone/deployments/
     mysqldb:
         image: mysql:latest
+        ports:
+            - "3306:3306"
         environment:
             MYSQL_DATABASE: 'lareleve'
             MYSQL_USER: 'lareleve'
