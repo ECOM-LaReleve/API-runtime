@@ -148,12 +148,15 @@ CREATE TABLE IF NOT EXISTS `Menages` (
   `id` INT NOT NULL,
   `idReferant` INT NULL,
   `idLogement` INT NULL,
+  `idChefMenage` INT NOT NULL,
   `dateEntree` DATETIME NULL,
   `dateSortie` DATETIME NULL,
+  `adresseActuelle` VARCHAR(255) NULL,
   `adresseSortie` VARCHAR(255) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Menages_Utilisateurs_id_idx` (`idReferant` ASC),
   INDEX `fk_Menages_Logements_id_idx` (`idLogement` ASC),
+  INDEX `fk_Menages_Individus_id_idx` (`idChefMenage` ASC),
   CONSTRAINT `fk_Menages_Utilisateurs_id`
     FOREIGN KEY (`idReferant`)
     REFERENCES `Utilisateurs` (`id`)
@@ -162,6 +165,11 @@ CREATE TABLE IF NOT EXISTS `Menages` (
   CONSTRAINT `fk_Menages_Logements_id`
     FOREIGN KEY (`idLogement`)
     REFERENCES `Logements` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+  CONSTRAINT `fk_Menages_Individus_id`
+    FOREIGN KEY (`idChefMenage`)
+    REFERENCES `Individus` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -224,8 +232,8 @@ CREATE TABLE IF NOT EXISTS `Individus` (
   `nomNaissance` VARCHAR(45) NOT NULL,
   `nomUsage` VARCHAR(45) NOT NULL,
   `prenom` VARCHAR(45) NOT NULL,
-  `tel` INT NULL,
-  `villeNaissance` VARCHAR(45) NULL,
+  `tel` VARCHAR(45) NULL,
+  `villeNaissance` VARCHAR(45) NOT NULL,
   `statutMatrimonial` VARCHAR(45) NULL,
   `dateEntreeFr` DATETIME NULL,
   `statutFr` VARCHAR(45) NULL,
@@ -247,7 +255,7 @@ DROP TABLE IF EXISTS `PrestationsRealisees` ;
 CREATE TABLE IF NOT EXISTS `PrestationsRealisees` (
   `id` INT NOT NULL,
   `idPrestation` INT NOT NULL,
-  `seqPrestation` INT NOT NULL,
+  `seqPrestation` INT NULL,
   `idUtilisateur` INT NOT NULL,
   `idMenage` INT NULL,
   `idIndividu` INT NULL,
