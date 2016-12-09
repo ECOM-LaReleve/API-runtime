@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `Roles` ;
 
 CREATE TABLE IF NOT EXISTS `Roles` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `libelle` VARCHAR(45) NOT NULL,
+  `libelle` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `uq_Roles_libelle` (`libelle` ASC))
 ENGINE = InnoDB;
@@ -38,16 +38,9 @@ DROP TABLE IF EXISTS `Poles` ;
 
 CREATE TABLE IF NOT EXISTS `Poles` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `chefPole` INT NOT NULL,
-  `libelle` VARCHAR(45) NOT NULL,
+  `libelle` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Poles_Utilisateurs_chef_idx` (`chefPole` ASC),
-  UNIQUE INDEX `uq_Poles_libelle` (`libelle` ASC),
-  CONSTRAINT `fk_Poles_Utilisateurs_chef`
-    FOREIGN KEY (`chefPole`)
-    REFERENCES `Utilisateurs` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  UNIQUE INDEX `uq_Poles_libelle` (`libelle` ASC))
 ENGINE = InnoDB;
 
 
@@ -59,7 +52,7 @@ DROP TABLE IF EXISTS `Services` ;
 CREATE TABLE IF NOT EXISTS `Services` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `idPole` INT NOT NULL,
-  `libelle` VARCHAR(45) NOT NULL,
+  `libelle` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Services_Poles_id_idx` (`idPole` ASC),
   UNIQUE INDEX `uq_Services_libelle` (`libelle` ASC),
@@ -148,7 +141,6 @@ CREATE TABLE IF NOT EXISTS `Menages` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `idReferant` INT NULL,
   `idLogement` INT NULL,
-  `idChefMenage` INT NOT NULL,
   `dateEntree` DATETIME NULL,
   `dateSortie` DATETIME NULL,
   `adresseActuelle` VARCHAR(255) NULL,
@@ -156,7 +148,6 @@ CREATE TABLE IF NOT EXISTS `Menages` (
   PRIMARY KEY (`id`),
   INDEX `fk_Menages_Utilisateurs_id_idx` (`idReferant` ASC),
   INDEX `fk_Menages_Logements_id_idx` (`idLogement` ASC),
-  INDEX `fk_Menages_Individus_id_idx` (`idChefMenage` ASC),
   CONSTRAINT `fk_Menages_Utilisateurs_id`
     FOREIGN KEY (`idReferant`)
     REFERENCES `Utilisateurs` (`id`)
@@ -165,11 +156,6 @@ CREATE TABLE IF NOT EXISTS `Menages` (
   CONSTRAINT `fk_Menages_Logements_id`
     FOREIGN KEY (`idLogement`)
     REFERENCES `Logements` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Menages_Individus_id`
-    FOREIGN KEY (`idChefMenage`)
-    REFERENCES `Individus` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -182,7 +168,7 @@ DROP TABLE IF EXISTS `Besoins` ;
 
 CREATE TABLE IF NOT EXISTS `Besoins` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `libelle` VARCHAR(45) NOT NULL,
+  `libelle` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `uq_Besoins_libelle` (`libelle` ASC))
 ENGINE = InnoDB;
@@ -195,7 +181,7 @@ DROP TABLE IF EXISTS `Actes` ;
 
 CREATE TABLE IF NOT EXISTS `Actes` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `libelle` VARCHAR(45) NOT NULL,
+  `libelle` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `uq_Actes_libelle` (`libelle` ASC))
 ENGINE = InnoDB;
@@ -209,7 +195,7 @@ DROP TABLE IF EXISTS `Prestations` ;
 CREATE TABLE IF NOT EXISTS `Prestations` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `idBesoin` INT NOT NULL,
-  `libelle` VARCHAR(45) NOT NULL,
+  `libelle` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Prestations_Besoins_id_idx` (`idBesoin` ASC),
   UNIQUE INDEX `uq_Prestations_libelle` (`libelle` ASC),
@@ -228,12 +214,12 @@ DROP TABLE IF EXISTS `Individus` ;
 
 CREATE TABLE IF NOT EXISTS `Individus` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `idMenage` INT NOT NULL,
+  `idMenage` INT NULL,
   `nomNaissance` VARCHAR(45) NOT NULL,
   `nomUsage` VARCHAR(45) NOT NULL,
   `prenom` VARCHAR(45) NOT NULL,
   `tel` VARCHAR(45) NULL,
-  `villeNaissance` VARCHAR(45) NOT NULL,
+  `villeNaissance` VARCHAR(45) NULL,
   `statutMatrimonial` VARCHAR(45) NULL,
   `dateEntreeFr` DATETIME NULL,
   `statutFr` VARCHAR(45) NULL,
@@ -514,20 +500,22 @@ ENGINE = InnoDB;
 
 START TRANSACTION;
 
--- -- -----------------------------------------------------
--- -- Data for table `Roles`
--- -- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Data for table `Roles`
+-- -----------------------------------------------------
 -- INSERT INTO `Roles` (`id`, `libelle`) VALUES (1, 'TS');
 -- INSERT INTO `Roles` (`id`, `libelle`) VALUES (2, 'DAE');
 -- INSERT INTO `Roles` (`id`, `libelle`) VALUES (3, 'DG');
 -- INSERT INTO `Roles` (`id`, `libelle`) VALUES (4, 'Accueil');
---
--- -- -----------------------------------------------------
--- -- Data for table `Poles`
--- -- -----------------------------------------------------
-INSERT INTO `Poles` (`id`, `chefPole`, `libelle`) VALUES (1, 1, 'ASILE');
-INSERT INTO `Poles` (`id`, `chefPole`, `libelle`) VALUES (2, 2, 'URGENCE');
-INSERT INTO `Poles` (`id`, `chefPole`, `libelle`) VALUES (3, 3, 'INSERTION');
+
+
+-- -----------------------------------------------------
+-- Data for table `Poles`
+-- -----------------------------------------------------
+INSERT INTO `Poles` (`id`, `libelle`) VALUES (1, 'ASILE');
+INSERT INTO `Poles` (`id`, `libelle`) VALUES (2, 'URGENCE');
+INSERT INTO `Poles` (`id`, `libelle`) VALUES (3, 'INSERTION');
+
 
 -- -- -----------------------------------------------------
 -- -- Data for table `Services`
@@ -537,137 +525,194 @@ INSERT INTO `Services` (`id`, `idPole`, `libelle`) VALUES (2, 2, 'SAFEC');
 INSERT INTO `Services` (`id`, `idPole`, `libelle`) VALUES (3, 3, 'CHRS insertion');
 INSERT INTO `Services` (`id`, `idPole`, `libelle`) VALUES (4, 3, 'CHRS urgence');
 
--- -- -----------------------------------------------------
--- -- Data for table `Utilisateurs`
--- -- -----------------------------------------------------
-INSERT INTO `Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (1, 4, '1234', 'roger', 'Roger', 'Rabbit');
-INSERT INTO `Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (2, 3, 'password', 'henry', 'Henry', 'Gaule');
-INSERT INTO `Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (3, 2, 'mdp', 'quentin-elsa', 'Quentin-Elsa', 'Dunand-Navarro');
-INSERT INTO `Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (4, 1, 'azerty', 'popek', 'Florian', 'Popek');
 
--- -- -----------------------------------------------------
--- -- Data for table `RolesUtilisateurs`
--- -- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Data for table `Utilisateurs`
+-- -----------------------------------------------------
+INSERT INTO `Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (1, 1, '1234', 'rachexc', 'Rachex', 'Coralie');
+INSERT INTO `Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (2, 1, 'password', 'navarroe', 'Navarro', 'Elsa');
+INSERT INTO `Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (3, 1, 'mdp', 'gattazr', 'Gattaz', 'remi');
+INSERT INTO `Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (4, 2, 'azerty', 'popekf', 'Popek', 'Florian');
+
+
+-- -----------------------------------------------------
+-- Data for table `RolesUtilisateurs`
+-- -----------------------------------------------------
 -- INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (1, 1);
 -- INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (2, 2);
 -- INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (3, 3);
 -- INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (4, 4);
---
--- -- -----------------------------------------------------
--- -- Data for table `Logements`
--- -- -----------------------------------------------------
--- INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (1, 10, 100, 1000, 'passif', '17 rue François', 3, '1206', 'Au fond à droite', 'Immeuble', 35, 400, 50);
--- INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (2, 20, 200, 2000, 'actif', '1 boulevard du Boulevard', 1, NULL, 'A l\'adresse comme indiquée', 'Maison', 50, 500, 0);
--- INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (3, 30, 300, 3000, 'passif', '123 rue du Quatre-Cinq-Six', 2, '1234', NULL, 'Immeuble', 60, 750, 80);
--- INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (4, 40, 400, 4000, 'actif', '99999 rue de l\'Infini', 99, 'unsigned int (-1)', 'Suivre l\'hyperbole', 'Palace', 999, 1, 0.1);
---
--- -- -----------------------------------------------------
--- -- Data for table `Menages`
--- -- -----------------------------------------------------
-INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `idChefMenage`, `dateEntree`, `dateSortie`, `adresseActuelle`, `adresseSortie`) VALUES (1, 1, NULL, 1, '2003-10-25', NULL, NULL, 'Hell');
-INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `idChefMenage`, `dateEntree`, `dateSortie`, `adresseActuelle`, `adresseSortie`) VALUES (2, 2, NULL, 2, '2004-11-25', NULL, NULL, '42 rue de la Vie');
-INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `idChefMenage`, `dateEntree`, `dateSortie`, `adresseActuelle`, `adresseSortie`) VALUES (3, 3, NULL, 3, '2007-3-5', NULL, NULL, NULL);
-INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `idChefMenage`, `dateEntree`, `dateSortie`, `adresseActuelle`, `adresseSortie`) VALUES (4, 4, NULL, 4, '2009-1-1', '2009-1-2', NULL, 'Cimetière');
 
--- -- -----------------------------------------------------
--- -- Data for table `Besoins`
--- -- -----------------------------------------------------
--- INSERT INTO `Besoins` (`id`, `libelle`) VALUES (1, 'Logement');
--- INSERT INTO `Besoins` (`id`, `libelle`) VALUES (2, 'Administratif');
--- INSERT INTO `Besoins` (`id`, `libelle`) VALUES (3, 'Santé');
---
--- -- -----------------------------------------------------
--- -- Data for table `Actes`
--- -- -----------------------------------------------------
--- INSERT INTO `Actes` (`id`, `libelle`) VALUES (1, 'RDV partenaire');
--- INSERT INTO `Actes` (`id`, `libelle`) VALUES (2, 'VAD');
--- INSERT INTO `Actes` (`id`, `libelle`) VALUES (3, 'Entretien de pré-admission');
--- INSERT INTO `Actes` (`id`, `libelle`) VALUES (4, 'RDV spontanné');
---
--- -- -----------------------------------------------------
--- -- Data for table `Prestations`
--- -- -----------------------------------------------------
--- INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (1, 1, 'Recherche d\'un logement');
--- INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (2, 2, 'Licenciement d\'un travailleur social');
--- INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (3, 3, 'Achat de médicaments');
--- INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (4, 3, 'Achat de pansements');
--- INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (5, 2, 'Achat de café');
---
--- -- -----------------------------------------------------
--- -- Data for table `Individus`
--- -- -----------------------------------------------------
-INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (1, 1, 'Adi', 'Jaques l\'éventeur', 'Jacques', 0600000000, 'Montélimar', 'VEUF', '2000-1-1', 'Deboute');
-INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (2, 2, 'Moon', 'Salomon', 'Salomon', 0600000001, 'Valence', 'VEUF', '2001-1-1', 'Deboute');
-INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (3, 3, 'Laconis', 'Petit Nicolas', 'Nicolas', 0600000002, 'Loriol', 'VEUF', '2001-10-10', 'Deboute');
-INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (4, 4, 'B', 'Aaa', 'A', 0600000003, 'Livron', 'VEUF', '2001-11-10', 'Deboute');
-INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (5, 2, '2', '111', '1', NULL, 'Ardèche', 'VEUF', '2001-12-10', 'Deboute');
 
--- -- -----------------------------------------------------
--- -- Data for table `PrestationsRealisees`
--- -- -----------------------------------------------------
--- INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (1, 1, 20013, 1, 1, NULL, 'Validé', '2013-10-10', '2013-10-15', 'Stéphane Plaza était très gentil');
--- INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (2, 4, 21555, 2, NULL, NULL, 'Validé', '2013-11-20', '2016-11-11', 'Les pansements se font rares');
--- INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (3, 5, 3422, 3, NULL, NULL, 'Validé', '2014-11-22', '2014-11-22', 'On a encore eu de la chance');
---
--- -- -----------------------------------------------------
--- -- Data for table `ActesRealises`
--- -- -----------------------------------------------------
--- INSERT INTO `ActesRealises` (`id`, `idActe`, `seqActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `dateRealisation`, `commentaire`) VALUES (1, 1, 12, 3, 1, NULL, NULL, 1, 'Honoré', '2013-10-17', 'Stéphane Plaza nous a vraiment aidé sur ce coup !');
--- INSERT INTO `ActesRealises` (`id`, `idActe`, `seqActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `dateRealisation`, `commentaire`) VALUES (2, 3, 6, 4, NULL, 4, 1, NULL, 'A venir', NOW(), 'A faire rapidement');
---
--- -- -----------------------------------------------------
--- -- Data for table `Ressources`
--- -- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Data for table `Logements`
+-- -----------------------------------------------------
+-- INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (1, 10, 100, 1000, 'Passif', '17 rue François', 3, '1206', 'Au fond à droite', 'Appartement', 35, 400, 50);
+-- INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (2, 20, 200, 2000, 'Actif', '1 boulevard du Boulevard', 1, NULL, 'A l\'adresse comme indiquée', 'Maison', 50, 500, 0);
+-- INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (3, 30, 300, 3000, 'Passif', '123 rue du Quatre-Cinq-Six', 2, '1234', NULL, 'Appartement', 60, 750, 80);
+-- INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (4, 40, 400, 4000, 'Actif', '99999 rue de l\'Infini', 99, 'unsigned int (-1)', 'Suivre l\'hyperbole', 'Maison', 999, 1, 0.1);
+
+-- -----------------------------------------------------
+-- Data for table `Menages`
+-- -----------------------------------------------------
+INSERT INTO `Menages` (`id`, `idReferant`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (1, 1, '2003-10-25', NULL, NULL);
+INSERT INTO `Menages` (`id`, `idReferant`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (2, 2, '2004-11-25', NULL, NULL);
+INSERT INTO `Menages` (`id`, `idReferant`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (3, 3, '2007-03-05', NULL, NULL);
+INSERT INTO `Menages` (`id`, `idReferant`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (4, 4, '2009-01-01', NULL, NULL);
+
+-- -----------------------------------------------------
+-- Data for table `Besoins`
+-- -----------------------------------------------------
+INSERT INTO `Besoins` (`id`, `libelle`) VALUES (1, 'Administratif');
+INSERT INTO `Besoins` (`id`, `libelle`) VALUES (2, 'Santé');
+INSERT INTO `Besoins` (`id`, `libelle`) VALUES (3, 'Logement');
+INSERT INTO `Besoins` (`id`, `libelle`) VALUES (4, 'Gestimm');
+INSERT INTO `Besoins` (`id`, `libelle`) VALUES (5, 'Demande asile');
+INSERT INTO `Besoins` (`id`, `libelle`) VALUES (6, 'Insertion professionnelle');
+INSERT INTO `Besoins` (`id`, `libelle`) VALUES (7, 'Scolarité');
+
+-- -----------------------------------------------------
+-- Data for table `Actes`
+-- -----------------------------------------------------
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (1, 'Entretien de pré-admission');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (2, 'RDV spontané');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (3, 'RDV partenaire');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (4, 'RDV équipe de direction"');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (5, 'Visite à domicile');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (6, 'Contact téléphonique ménage donné');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (7, 'Contact téléphonique ménage reçu');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (8, 'Contact téléphonique partenaire donné');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (9, 'Contact téléphonique partenaire reçu');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (10, 'Accompagnement physique du ménage');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (11, 'Emménagement');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (12, 'Demménagement');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (13, 'Etat des lieux');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (14, 'Rencontre référent logement');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (15, 'Rencontre CIP');
+INSERT INTO `Actes` (`id`, `libelle`) VALUES (16, 'Visite logement');
+
+-- -----------------------------------------------------
+-- Data for table `Prestations`
+-- -----------------------------------------------------
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (1, 1, 'Signature du contrat d\'accompagnement');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (2, 1, 'Demande d\'aide financière institutionnelle');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (3, 1, 'Demande d\'aide financière caritative');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (4, 1, 'Déclaration des revenus');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (5, 1, 'Demande d\'aide au logement');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (6, 1, 'Demande de prestation CAF');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (7, 1, 'Demande de RSA');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (8, 1, 'Signature CER');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (9, 1, 'Autre demande de ressource');
+
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (10, 2, 'Dossier d\'ouverture de droit à la sécurité social');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (11, 2, 'Dossier d\'ouverture de droit à la complémentaire santé');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (12, 2, 'Demande de prestation en espèces');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (13, 2, 'Dossier handicap');
+
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (14, 3, 'Demande de logement social');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (15, 3, 'Dossier BALD');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (16, 3, 'Dossier POHI');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (17, 3, 'Dossier DALO');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (18, 3, 'Dossier DAHO');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (19, 3, 'Demande garantie financière');
+
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (20, 4, 'Demande de travaux');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (21, 4, 'Demande d\'emménagement');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (22, 4, 'Demande de demménagement');
+
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (23, 6, 'Demande d\'accompagnement du CIP');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (24, 6, 'Demande inscription pôle emploi');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (25, 6, 'Demande prestation pôle emploi');
+
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (26, 7, 'Inscription scolaire');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (27, 7, 'Demande bourse d\'étude');
+INSERT INTO `Prestations` (`id`, `idBesoin`, `libelle`) VALUES (28, 7, 'Dispositif spécifique scolarité');
+
+
+-- -----------------------------------------------------
+-- Data for table `Individus`
+-- -----------------------------------------------------
+INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (1, 1, 'Dupond', 'Dupond', 'Jacques', 0605003400, 'Lyon', 'Celibataire', '2000-01-01', 'Refugie');
+INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (2, 2, 'Moon', 'Moon', 'Salomon', 0665780001, 'Valence', 'Marie', '2001-01-01', 'DemandeTitreSejour');
+INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (3, 3, 'Laconis', 'Laconis', 'Nicolas', 0600567002, 'Loriol', 'Veuf', '2001-10-10', 'Deboute');
+INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (4, 4, 'Blitz', 'Martin', 'Naomie', 0600786003, 'Livron', 'Marie', '2001-11-10', 'TitreSubsidiaire');
+INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`, `tel`, `villeNaissance`, `statutMatrimonial`, `dateEntreeFr`, `statutFr`) VALUES (5, 2, 'Goertz', 'Boisier', 'Gwenaelle', 0600786003, 'Berlin', 'Marie', '2001-12-10', 'CNDA');
+
+
+-- -----------------------------------------------------
+-- Data for table `PrestationsRealisees`
+-- -----------------------------------------------------
+-- INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (1, 1, 20013, 1, 1, NULL, 'Validee', '2013-10-10', '2013-10-15', 'Stéphane Plaza était très gentil');
+-- INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (2, 4, 21555, 2, NULL, NULL, 'Validee', '2013-11-20', '2016-11-11', 'Les pansements se font rares');
+-- INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (3, 5, 3422, 3, NULL, NULL, 'Refusee', '2014-11-22', '2014-11-22', 'On a encore eu de la chance');
+
+
+-- -----------------------------------------------------
+-- Data for table `ActesRealises`
+-- -----------------------------------------------------
+-- INSERT INTO `ActesRealises` (`id`, `idActe`, `seqActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `dateRealisation`, `commentaire`) VALUES (1, 1, 12, 3, 1, NULL, NULL, 1, 'Honore', '2013-10-17', 'Stéphane Plaza nous a vraiment aidé sur ce coup !');
+-- INSERT INTO `ActesRealises` (`id`, `idActe`, `seqActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `dateRealisation`, `commentaire`) VALUES (2, 3, 6, 4, NULL, 4, 1, NULL, 'Honore', NOW(), 'A faire rapidement');
+
+
+-- -----------------------------------------------------
+-- Data for table `Ressources`
+-- -----------------------------------------------------
 -- INSERT INTO `Ressources` (`id`, `libelle`, `type`) VALUES (1, 'RSA', 'individu');
 -- INSERT INTO `Ressources` (`id`, `libelle`, `type`) VALUES (2, 'Alloc', 'menage');
---
--- -- -----------------------------------------------------
--- -- Data for table `Langues`
--- -- -----------------------------------------------------
+
+
+-- -----------------------------------------------------
+-- Data for table `Langues`
+-- -----------------------------------------------------
 -- INSERT INTO `Langues` (`id`, `libelle`) VALUES (1, 'Français');
 -- INSERT INTO `Langues` (`id`, `libelle`) VALUES (2, 'Ardéchois');
 -- INSERT INTO `Langues` (`id`, `libelle`) VALUES (3, 'Breton');
 -- INSERT INTO `Langues` (`id`, `libelle`) VALUES (4, 'Togolais');
---
--- -- -----------------------------------------------------
--- -- Data for table `RessourcesIndividus`
--- -- -----------------------------------------------------
+
+
+-- -----------------------------------------------------
+-- Data for table `RessourcesIndividus`
+-- -----------------------------------------------------
 -- INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (1, '1', 999);
 -- INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (2, '1', 60);
 -- INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (3, '1', 40);
 -- INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (4, '1', 20);
 -- INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (5, '1', 0);
---
--- -- -----------------------------------------------------
--- -- Data for table `RessourcesMenages`
--- -- -----------------------------------------------------
+
+
+-- -----------------------------------------------------
+-- Data for table `RessourcesMenages`
+-- -----------------------------------------------------
 -- INSERT INTO `RessourcesMenages` (`idMenage`, `idRessources`, `montantRessource`) VALUES (1, '2', 300);
 -- INSERT INTO `RessourcesMenages` (`idMenage`, `idRessources`, `montantRessource`) VALUES (2, '2', 400);
---
--- -- -----------------------------------------------------
--- -- Data for table `LanguesIndividus`
--- -- -----------------------------------------------------
+
+
+-- -----------------------------------------------------
+-- Data for table `LanguesIndividus`
+-- -----------------------------------------------------
 -- INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (1, '1', 4);
 -- INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (2, '2', 3);
 -- INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (3, '1', 4);
 -- INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (4, '3', 5);
 -- INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (5, '4', 1);
---
--- -- -----------------------------------------------------
--- -- Data for table `Nationnalites`
--- -- -----------------------------------------------------
+
+
+-- -----------------------------------------------------
+-- Data for table `Nationnalites`
+-- -----------------------------------------------------
 -- INSERT INTO `Nationnalites` (`id`, `libelle`) VALUES (1, 'Française');
 -- INSERT INTO `Nationnalites` (`id`, `libelle`) VALUES (2, 'Anglaise');
 -- INSERT INTO `Nationnalites` (`id`, `libelle`) VALUES (3, 'Marocaine');
---
--- -- -----------------------------------------------------
--- -- Data for table `NationnalitesIndividus`
--- -- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Data for table `NationnalitesIndividus`
+-- -----------------------------------------------------
 -- INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (1, '3');
 -- INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (2, '3');
 -- INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (3, '2');
 -- INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (4, '2');
 -- INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (5, '1');
+
 
 COMMIT;
 
