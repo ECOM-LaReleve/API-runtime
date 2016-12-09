@@ -508,6 +508,7 @@ START TRANSACTION;
 -- INSERT INTO `Roles` (`id`, `libelle`) VALUES (3, 'DG');
 -- INSERT INTO `Roles` (`id`, `libelle`) VALUES (4, 'Accueil');
 
+
 -- -----------------------------------------------------
 -- Data for table `Poles`
 -- -----------------------------------------------------
@@ -515,13 +516,15 @@ INSERT INTO `Poles` (`id`, `libelle`) VALUES (1, 'ASILE');
 INSERT INTO `Poles` (`id`, `libelle`) VALUES (2, 'URGENCE');
 INSERT INTO `Poles` (`id`, `libelle`) VALUES (3, 'INSERTION');
 
--- -----------------------------------------------------
--- Data for table `Services`
--- -----------------------------------------------------
+
+-- -- -----------------------------------------------------
+-- -- Data for table `Services`
+-- -- -----------------------------------------------------
 INSERT INTO `Services` (`id`, `idPole`, `libelle`) VALUES (1, 1, 'LA PAUSE');
 INSERT INTO `Services` (`id`, `idPole`, `libelle`) VALUES (2, 2, 'SAFEC');
 INSERT INTO `Services` (`id`, `idPole`, `libelle`) VALUES (3, 3, 'CHRS insertion');
 INSERT INTO `Services` (`id`, `idPole`, `libelle`) VALUES (4, 3, 'CHRS urgence');
+
 
 -- -----------------------------------------------------
 -- Data for table `Utilisateurs`
@@ -531,6 +534,7 @@ INSERT INTO `Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `p
 INSERT INTO `Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (3, 1, 'mdp', 'gattazr', 'Gattaz', 'remi');
 INSERT INTO `Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `prenom`) VALUES (4, 2, 'azerty', 'popekf', 'Popek', 'Florian');
 
+
 -- -----------------------------------------------------
 -- Data for table `RolesUtilisateurs`
 -- -----------------------------------------------------
@@ -538,6 +542,7 @@ INSERT INTO `Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `p
 -- INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (2, 2);
 -- INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (3, 3);
 -- INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (4, 4);
+
 
 -- -----------------------------------------------------
 -- Data for table `Logements`
@@ -641,17 +646,20 @@ INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`,
 -- INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (2, 4, 21555, 2, NULL, NULL, 'Validee', '2013-11-20', '2016-11-11', 'Les pansements se font rares');
 -- INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (3, 5, 3422, 3, NULL, NULL, 'Refusee', '2014-11-22', '2014-11-22', 'On a encore eu de la chance');
 
+
 -- -----------------------------------------------------
 -- Data for table `ActesRealises`
 -- -----------------------------------------------------
 -- INSERT INTO `ActesRealises` (`id`, `idActe`, `seqActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `dateRealisation`, `commentaire`) VALUES (1, 1, 12, 3, 1, NULL, NULL, 1, 'Honore', '2013-10-17', 'Stéphane Plaza nous a vraiment aidé sur ce coup !');
 -- INSERT INTO `ActesRealises` (`id`, `idActe`, `seqActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `dateRealisation`, `commentaire`) VALUES (2, 3, 6, 4, NULL, 4, 1, NULL, 'Honore', NOW(), 'A faire rapidement');
 
+
 -- -----------------------------------------------------
 -- Data for table `Ressources`
 -- -----------------------------------------------------
 -- INSERT INTO `Ressources` (`id`, `libelle`, `type`) VALUES (1, 'RSA', 'individu');
 -- INSERT INTO `Ressources` (`id`, `libelle`, `type`) VALUES (2, 'Alloc', 'menage');
+
 
 -- -----------------------------------------------------
 -- Data for table `Langues`
@@ -660,6 +668,7 @@ INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`,
 -- INSERT INTO `Langues` (`id`, `libelle`) VALUES (2, 'Ardéchois');
 -- INSERT INTO `Langues` (`id`, `libelle`) VALUES (3, 'Breton');
 -- INSERT INTO `Langues` (`id`, `libelle`) VALUES (4, 'Togolais');
+
 
 -- -----------------------------------------------------
 -- Data for table `RessourcesIndividus`
@@ -670,11 +679,13 @@ INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`,
 -- INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (4, '1', 20);
 -- INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (5, '1', 0);
 
+
 -- -----------------------------------------------------
 -- Data for table `RessourcesMenages`
 -- -----------------------------------------------------
 -- INSERT INTO `RessourcesMenages` (`idMenage`, `idRessources`, `montantRessource`) VALUES (1, '2', 300);
 -- INSERT INTO `RessourcesMenages` (`idMenage`, `idRessources`, `montantRessource`) VALUES (2, '2', 400);
+
 
 -- -----------------------------------------------------
 -- Data for table `LanguesIndividus`
@@ -684,6 +695,7 @@ INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`,
 -- INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (3, '1', 4);
 -- INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (4, '3', 5);
 -- INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (5, '4', 1);
+
 
 -- -----------------------------------------------------
 -- Data for table `Nationnalites`
@@ -700,6 +712,7 @@ INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`,
 -- INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (3, '2');
 -- INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (4, '2');
 -- INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (5, '1');
+
 
 COMMIT;
 
