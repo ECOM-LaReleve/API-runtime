@@ -17,6 +17,7 @@ services:
             # MYSQL_USER: 'lareleve'
             # MYSQL_PASSWORD: 'lareleve123'
             #### Hawkular administration
+            # HAWKULAR_HOST: '192.168.99.100:8080'
             # HAWKULAR_USERNAME: 'jdoe'
             # HAWKULAR_PASSWORD: 'password'
         volumes:
