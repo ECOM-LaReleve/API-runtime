@@ -503,10 +503,10 @@ START TRANSACTION;
 -- -----------------------------------------------------
 -- Data for table `Roles`
 -- -----------------------------------------------------
--- INSERT INTO `Roles` (`id`, `libelle`) VALUES (1, 'TS');
--- INSERT INTO `Roles` (`id`, `libelle`) VALUES (2, 'DAE');
--- INSERT INTO `Roles` (`id`, `libelle`) VALUES (3, 'DG');
--- INSERT INTO `Roles` (`id`, `libelle`) VALUES (4, 'Accueil');
+INSERT INTO `Roles` (`id`, `libelle`) VALUES (1, 'TS');
+INSERT INTO `Roles` (`id`, `libelle`) VALUES (2, 'DAE');
+INSERT INTO `Roles` (`id`, `libelle`) VALUES (3, 'DG');
+INSERT INTO `Roles` (`id`, `libelle`) VALUES (4, 'Accueil');
 
 
 -- -----------------------------------------------------
@@ -538,10 +538,10 @@ INSERT INTO `Utilisateurs` (`id`, `idService`, `password`, `username`, `nom`, `p
 -- -----------------------------------------------------
 -- Data for table `RolesUtilisateurs`
 -- -----------------------------------------------------
--- INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (1, 1);
--- INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (2, 2);
--- INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (3, 3);
--- INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (4, 4);
+INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (1, 1);
+INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (1, 2);
+INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (1, 3);
+INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (1, 4);
 
 
 -- -----------------------------------------------------
