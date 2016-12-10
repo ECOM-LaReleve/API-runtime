@@ -241,12 +241,11 @@ DROP TABLE IF EXISTS `PrestationsRealisees` ;
 CREATE TABLE IF NOT EXISTS `PrestationsRealisees` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `idPrestation` INT NOT NULL,
-  `seqPrestation` INT NULL,
   `idUtilisateur` INT NOT NULL,
   `idMenage` INT NULL,
   `idIndividu` INT NULL,
   `statut` VARCHAR(45) NOT NULL,
-  `dateCreation` DATETIME NOT NULL,
+  `dateCreation` DATETIME NULL,
   `dateFin` DATETIME NULL,
   `commentaire` TEXT NULL,
   PRIMARY KEY (`id`),
@@ -285,14 +284,13 @@ DROP TABLE IF EXISTS `ActesRealises` ;
 CREATE TABLE IF NOT EXISTS `ActesRealises` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `idActe` INT NOT NULL,
-  `seqActe` INT NOT NULL,
   `idUtilisateur` INT NOT NULL,
   `idMenage` INT NULL,
   `idIndividu` INT NULL,
   `idBesoin` INT NULL,
   `idPrestationRealisee` INT NULL,
-  `statut` VARCHAR(45) NOT NULL,
-  `dateRealisation` DATETIME NOT NULL,
+  `statut` VARCHAR(45) NULL,
+  `dateRealisation` DATETIME NULL,
   `commentaire` TEXT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_ActesRealisees_Actes_id_idx` (`idActe` ASC),
@@ -642,16 +640,24 @@ INSERT INTO `Individus` (`id`, `idMenage`, `nomNaissance`, `nomUsage`, `prenom`,
 -- -----------------------------------------------------
 -- Data for table `PrestationsRealisees`
 -- -----------------------------------------------------
--- INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (1, 1, 20013, 1, 1, NULL, 'Validee', '2013-10-10', '2013-10-15', 'Stéphane Plaza était très gentil');
--- INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (2, 4, 21555, 2, NULL, NULL, 'Validee', '2013-11-20', '2016-11-11', 'Les pansements se font rares');
--- INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `seqPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `dateCreation`, `dateFin`, `commentaire`) VALUES (3, 5, 3422, 3, NULL, NULL, 'Refusee', '2014-11-22', '2014-11-22', 'On a encore eu de la chance');
-
+INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `commentaire`) VALUES (1, 1, 1, 1, NULL, 'Validee', 'Pas de commentaires');
+INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `commentaire`) VALUES (2, 2, 2, NULL, 2, 'Validee', 'Planifier une prise en charge CIP ?');
+INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `commentaire`) VALUES (3, 3, 3, 3, NULL, 'Refusee', NULL);
+INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `commentaire`) VALUES (4, 4, 3, 3, NULL, 'Refusee', NULL);
+INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `commentaire`) VALUES (5, 5, 4, NULL, 4, 'Refusee', NULL);
+INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `commentaire`) VALUES (6, 6, 3, 3, NULL, 'Refusee', NULL);
 
 -- -----------------------------------------------------
 -- Data for table `ActesRealises`
 -- -----------------------------------------------------
--- INSERT INTO `ActesRealises` (`id`, `idActe`, `seqActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `dateRealisation`, `commentaire`) VALUES (1, 1, 12, 3, 1, NULL, NULL, 1, 'Honore', '2013-10-17', 'Stéphane Plaza nous a vraiment aidé sur ce coup !');
--- INSERT INTO `ActesRealises` (`id`, `idActe`, `seqActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `dateRealisation`, `commentaire`) VALUES (2, 3, 6, 4, NULL, 4, 1, NULL, 'Honore', NOW(), 'A faire rapidement');
+INSERT INTO `ActesRealises` (`id`, `idActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `commentaire`) VALUES (1, 1, 1, 1, NULL,  NULL, NULL, 'Honore', 'Pas de commentaires');
+INSERT INTO `ActesRealises` (`id`, `idActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `commentaire`) VALUES (2, 2, 2, 2, NULL,  NULL, 2, 'Honore', '');
+INSERT INTO `ActesRealises` (`id`, `idActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `commentaire`) VALUES (3, 2, 3, 3, NULL,  NULL, NULL, 'Honore', '');
+INSERT INTO `ActesRealises` (`id`, `idActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `commentaire`) VALUES (4, 2, 4, 2, NULL,  1, NULL, 'Honore', '');
+INSERT INTO `ActesRealises` (`id`, `idActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `commentaire`) VALUES (5, 4, 4, NULL, 1,  1, NULL, 'Honore', '');
+INSERT INTO `ActesRealises` (`id`, `idActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `commentaire`) VALUES (6, 4, 3, NULL, 2,  NULL, NULL, 'Honore', '');
+INSERT INTO `ActesRealises` (`id`, `idActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `commentaire`) VALUES (7, 3, 1, NULL, 3,  NULL, 2, 'Honore', '');
+INSERT INTO `ActesRealises` (`id`, `idActe`, `idUtilisateur`, `idMenage`, `idIndividu`, `idBesoin`, `idPrestationRealisee`, `statut`, `commentaire`) VALUES (8, 1, 2, NULL, 1,  NULL, NULL, 'Honore', '');
 
 
 -- -----------------------------------------------------
