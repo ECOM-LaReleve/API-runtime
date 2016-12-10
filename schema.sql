@@ -647,6 +647,7 @@ INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `idUtilisateur`, `idMe
 INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `commentaire`) VALUES (5, 5, 4, NULL, 4, 'Refusee', NULL);
 INSERT INTO `PrestationsRealisees` (`id`, `idPrestation`, `idUtilisateur`, `idMenage`, `idIndividu`, `statut`, `commentaire`) VALUES (6, 6, 3, 3, NULL, 'Refusee', NULL);
 
+
 -- -----------------------------------------------------
 -- Data for table `ActesRealises`
 -- -----------------------------------------------------
