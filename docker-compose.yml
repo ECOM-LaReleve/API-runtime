@@ -3,8 +3,8 @@ services:
     wildfly:
         image: gattazr/lareleve:latest
         ports:
-            - "8080:8080"
-            - "9990:9990"
+            - '8080:8080'
+            - '9990:9990'
         environment:
             JAVA_OPTS: '-server -Xms64m -Xmx512m -XX:MetaspaceSize=96M -XX:MaxMetaspaceSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true -Dcom.sun.jersey.server.impl.cdi.lookupExtensionInBeanManager=true'
             #### Wildfly administration
@@ -22,19 +22,23 @@ services:
             # HAWKULAR_PASSWORD: 'password'
         volumes:
             - ./data/wildfly/log:/opt/jboss/wildfly/standalone/log
-            - ./data/wildfly/deployments/:/opt/jboss/wildfly/standalone/deployments/
+#            - ./data/wildfly/deployments/:/opt/jboss/wildfly/standalone/deployments/
     mysqldb:
-        image: mysql:latest
+        image: 'mysql/mysql-gr:latest'
         ports:
-            - "3306:3306"
+            - '3306:3306'
+            - '1186:1186'
         environment:
             MYSQL_DATABASE: 'lareleve'
             MYSQL_USER: 'lareleve'
             MYSQL_PASSWORD: 'lareleve123'
             MYSQL_ROOT_PASSWORD: 'mysqldb123'
+            MYSQL_REPLICATION_USER: 'rpl_user'
+            MYSQL_REPLICATION_PASSWORD: 'rpl_pass'
         volumes:
             - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
             - mysqlVolume:/var/lib/mysql
+        command: sh -c '/entrypoint.sh --group_replication_group_seeds="" --server-id=1'
 volumes:
   mysqlVolume:
       driver: local
