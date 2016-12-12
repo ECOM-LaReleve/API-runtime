@@ -141,6 +141,7 @@ CREATE TABLE IF NOT EXISTS `Menages` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `idReferant` INT NULL,
   `idLogement` INT NULL,
+  `nomChefMenage` VARCHAR(255) NOT NULL,
   `dateEntree` DATETIME NULL,
   `dateSortie` DATETIME NULL,
   `adresseActuelle` VARCHAR(255) NULL,
@@ -555,10 +556,10 @@ INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`
 -- -----------------------------------------------------
 -- Data for table `Menages`
 -- -----------------------------------------------------
-INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (1, 1, 1, '2003-10-25', NULL, NULL);
-INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (2, 2, 2, '2004-11-25', NULL, NULL);
-INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (3, 3, 3, '2007-03-05', NULL, NULL);
-INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (4, 4, 4, '2009-01-01', NULL, NULL);
+INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `nomChefMenage`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (1, 1, 1, 'Dupond', '2003-10-25', NULL, NULL);
+INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `nomChefMenage`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (2, 2, 2, 'Moon', '2004-11-25', NULL, NULL);
+INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `nomChefMenage`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (3, 3, 3, 'Laconis', '2007-03-05', NULL, NULL);
+INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `nomChefMenage`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (4, 4, 4, 'Martin', '2009-01-01', NULL, NULL);
 
 -- -----------------------------------------------------
 -- Data for table `Besoins`
