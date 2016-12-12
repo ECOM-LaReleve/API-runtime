@@ -443,7 +443,7 @@ DROP TABLE IF EXISTS `LanguesIndividus` ;
 CREATE TABLE IF NOT EXISTS `LanguesIndividus` (
   `idIndividu` INT NOT NULL,
   `idLangue` INT NOT NULL,
-  `niveauLangue` INT NOT NULL,
+  `niveauLangue` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idIndividu`, `idLangue`),
   INDEX `fk_LanguesIndividus_Langues_id_idx` (`idLangue` ASC),
   INDEX `fk_LanguesIndividus_Individus_id_idx` (`idIndividu` ASC),
@@ -546,18 +546,19 @@ INSERT INTO `RolesUtilisateurs` (`idRole`, `idUtilisateur`) VALUES (1, 4);
 -- -----------------------------------------------------
 -- Data for table `Logements`
 -- -----------------------------------------------------
--- INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (1, 10, 100, 1000, 'Passif', '17 rue François', 3, '1206', 'Au fond à droite', 'Appartement', 35, 400, 50);
--- INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (2, 20, 200, 2000, 'Actif', '1 boulevard du Boulevard', 1, NULL, 'A l\'adresse comme indiquée', 'Maison', 50, 500, 0);
--- INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (3, 30, 300, 3000, 'Passif', '123 rue du Quatre-Cinq-Six', 2, '1234', NULL, 'Appartement', 60, 750, 80);
--- INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (4, 40, 400, 4000, 'Actif', '99999 rue de l\'Infini', 99, 'unsigned int (-1)', 'Suivre l\'hyperbole', 'Maison', 999, 1, 0.1);
+INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (1, 10, 100, 1000, 'Passif', '17 rue François, 38000 Grenoble', 3, '1206', 'Au fond à droite', 'Appartement', 35, 400, 50);
+INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (2, 20, 200, 2000, 'Actif', '1 boulevard Foch, 38000 Grenoble', 1, NULL, NULL, 'Maison', 50, 500, 100);
+INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (3, 30, 300, 3000, 'Passif', '123 rue du Quatre-Cinq-Six, 38400 SMH', 2, '1234', NULL, 'Appartement', 60, 750, 80);
+INSERT INTO `Logements` (`id`, `idPOHI`, `idGestimmLogement`, `idGestimmMenages`, `statut`, `adresse`, `etage`, `digicode`, `direction`, `type`, `superficie`, `loyer`, `charges`) VALUES (4, 40, 400, 4000, 'Actif', '99 rue de l\'Infini, 38400 SMH', 4, NULL, NULL, 'Maison', 70, 800, 150);
+
 
 -- -----------------------------------------------------
 -- Data for table `Menages`
 -- -----------------------------------------------------
-INSERT INTO `Menages` (`id`, `idReferant`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (1, 1, '2003-10-25', NULL, NULL);
-INSERT INTO `Menages` (`id`, `idReferant`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (2, 2, '2004-11-25', NULL, NULL);
-INSERT INTO `Menages` (`id`, `idReferant`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (3, 3, '2007-03-05', NULL, NULL);
-INSERT INTO `Menages` (`id`, `idReferant`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (4, 4, '2009-01-01', NULL, NULL);
+INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (1, 1, 1, '2003-10-25', NULL, NULL);
+INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (2, 2, 2, '2004-11-25', NULL, NULL);
+INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (3, 3, 3, '2007-03-05', NULL, NULL);
+INSERT INTO `Menages` (`id`, `idReferant`, `idLogement`, `dateEntree`, `dateSortie`, `adresseSortie`) VALUES (4, 4, 4, '2009-01-01', NULL, NULL);
 
 -- -----------------------------------------------------
 -- Data for table `Besoins`
@@ -664,61 +665,61 @@ INSERT INTO `ActesRealises` (`id`, `idActe`, `idUtilisateur`, `idMenage`, `idInd
 -- -----------------------------------------------------
 -- Data for table `Ressources`
 -- -----------------------------------------------------
--- INSERT INTO `Ressources` (`id`, `libelle`, `type`) VALUES (1, 'RSA', 'individu');
--- INSERT INTO `Ressources` (`id`, `libelle`, `type`) VALUES (2, 'Alloc', 'menage');
+INSERT INTO `Ressources` (`id`, `libelle`, `type`) VALUES (1, 'RSA', 'Individu');
+INSERT INTO `Ressources` (`id`, `libelle`, `type`) VALUES (2, 'Alloc', 'Menage');
 
 
 -- -----------------------------------------------------
 -- Data for table `Langues`
 -- -----------------------------------------------------
--- INSERT INTO `Langues` (`id`, `libelle`) VALUES (1, 'Français');
--- INSERT INTO `Langues` (`id`, `libelle`) VALUES (2, 'Ardéchois');
--- INSERT INTO `Langues` (`id`, `libelle`) VALUES (3, 'Breton');
--- INSERT INTO `Langues` (`id`, `libelle`) VALUES (4, 'Togolais');
+INSERT INTO `Langues` (`id`, `libelle`) VALUES (1, 'Français');
+INSERT INTO `Langues` (`id`, `libelle`) VALUES (2, 'Roumains');
+INSERT INTO `Langues` (`id`, `libelle`) VALUES (3, 'Anglais');
+INSERT INTO `Langues` (`id`, `libelle`) VALUES (4, 'Togolais');
 
 
 -- -----------------------------------------------------
 -- Data for table `RessourcesIndividus`
 -- -----------------------------------------------------
--- INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (1, '1', 999);
--- INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (2, '1', 60);
--- INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (3, '1', 40);
--- INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (4, '1', 20);
--- INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (5, '1', 0);
+INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (1, 1, 999);
+INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (2, 1, 600);
+INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (3, 1, 400);
+INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (4, 1, 200);
+INSERT INTO `RessourcesIndividus` (`idIndividu`, `idRessources`, `montantRessource`) VALUES (5, 1, 100);
 
 
 -- -----------------------------------------------------
 -- Data for table `RessourcesMenages`
 -- -----------------------------------------------------
--- INSERT INTO `RessourcesMenages` (`idMenage`, `idRessources`, `montantRessource`) VALUES (1, '2', 300);
--- INSERT INTO `RessourcesMenages` (`idMenage`, `idRessources`, `montantRessource`) VALUES (2, '2', 400);
+INSERT INTO `RessourcesMenages` (`idMenage`, `idRessources`, `montantRessource`) VALUES (1, 2, 300);
+INSERT INTO `RessourcesMenages` (`idMenage`, `idRessources`, `montantRessource`) VALUES (2, 2, 400);
 
 
 -- -----------------------------------------------------
 -- Data for table `LanguesIndividus`
 -- -----------------------------------------------------
--- INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (1, '1', 4);
--- INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (2, '2', 3);
--- INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (3, '1', 4);
--- INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (4, '3', 5);
--- INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (5, '4', 1);
+INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (1, 1, 'Bilingue');
+INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (2, 2, 'Courant');
+INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (3, 1, 'Bilingue');
+INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (4, 3, 'Courant');
+INSERT INTO `LanguesIndividus` (`idIndividu`, `idLangue`, `niveauLangue`) VALUES (5, 4, 'Courant');
 
 
 -- -----------------------------------------------------
 -- Data for table `Nationnalites`
 -- -----------------------------------------------------
--- INSERT INTO `Nationnalites` (`id`, `libelle`) VALUES (1, 'Française');
--- INSERT INTO `Nationnalites` (`id`, `libelle`) VALUES (2, 'Anglaise');
--- INSERT INTO `Nationnalites` (`id`, `libelle`) VALUES (3, 'Marocaine');
+INSERT INTO `Nationnalites` (`id`, `libelle`) VALUES (1, 'Française');
+INSERT INTO `Nationnalites` (`id`, `libelle`) VALUES (2, 'Roumaine');
+INSERT INTO `Nationnalites` (`id`, `libelle`) VALUES (3, 'Marocaine');
 
 -- -----------------------------------------------------
 -- Data for table `NationnalitesIndividus`
 -- -----------------------------------------------------
--- INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (1, '3');
--- INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (2, '3');
--- INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (3, '2');
--- INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (4, '2');
--- INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (5, '1');
+INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (1, 3);
+INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (2, 3);
+INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (3, 2);
+INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (4, 2);
+INSERT INTO `NationnalitesIndividus` (`idIndividu`, `idNationnalite`) VALUES (5, 1);
 
 
 COMMIT;
